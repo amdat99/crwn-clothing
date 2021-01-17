@@ -17,3 +17,7 @@ body{
    *{
        box-sizing: border-box;
    }
+
+   .hide-scroll::-webkit-scrollbar {
+    display: none;
+  }
