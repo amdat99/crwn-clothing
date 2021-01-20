@@ -11,7 +11,12 @@
     right: 40px;
     z-index: 5;
 
-    
+    .empty-message {
+      justify-content:center;
+      display:flex;
+      bottom: -80px;
+      position: relative;
+    }
   
     .cart-items {
       height: 240px;
@@ -24,6 +29,4 @@
       margin-top: auto; // button always at bopttom
     }
   }
-    .cart-dropdown::-webkit-scrollbar {
-      display: none;
-    }
+   

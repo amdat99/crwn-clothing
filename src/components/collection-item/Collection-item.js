@@ -6,7 +6,7 @@ import {addItem} from '../../redux/cart/cart.actions'
 
 import './collection-item.scss'
 
-function CollectionItem ({item, addItem}) {
+function CollectionItem ({item, incrementItem}) {
     const { name, price, imageUrl} = item;
     return (
         <div className="collection-item">
@@ -16,9 +16,9 @@ function CollectionItem ({item, addItem}) {
                      }}>   
                  <div className="collection-footer">
                     <span className='name'>{name} </span>
-                    <span className= 'price'>{price} </span>
+                    <span className= 'price'>£{price} </span>
                 </div> 
-                <CustomButton onClick={() => addItem(item)} inverted >
+                <CustomButton onClick={() => incrementItem(item)} inverted >
                     Add to Cart
                 </CustomButton>
             </div> 
@@ -27,7 +27,7 @@ function CollectionItem ({item, addItem}) {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    addItem: item => dispatch(addItem(item))
+    incrementItem: item => dispatch(addItem(item))
 })
 
 export default connect(null,mapDispatchToProps)(CollectionItem);

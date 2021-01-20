@@ -6,6 +6,7 @@
   align-items: center;
   margin: 10px;
   position: relative;
+  min-width: 170px;
   
 .image {
     width: 100%;
@@ -15,6 +16,8 @@
     margin-bottom: 5px;
     display: flex;
     justify-content: center;
+    
+    
   }
 
   .custom-button {
@@ -24,7 +27,7 @@
     position: absolute;
     top: 270px;
     display: none;
-    
+     min-width: 160px;
   }
 
   &:hover {
@@ -58,6 +61,7 @@
       bottom: -340px;
       position: relative;
       color: red;
+      padding-right: 50px;
     }
   }
 }
