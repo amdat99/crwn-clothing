@@ -16,7 +16,7 @@ import {
 
 // import './collection-item.scss'
 
-function CollectionItem ({item, incrementItem,cartHiddenFalse}) {
+function CollectionProduct ({item, incrementItem,cartHiddenFalse}) {
     // const { name, price, imageUrl} = item;
     const { name, price, imageUrl } = item;
     
@@ -43,4 +43,4 @@ const mapDispatchToProps = (dispatch) => ({
     cartHiddenFalse: () => dispatch(cartHiddenFalse())
 })
 
-export default connect(null,mapDispatchToProps)(CollectionItem);
+export default connect(null,mapDispatchToProps)(CollectionProduct);

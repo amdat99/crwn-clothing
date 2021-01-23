@@ -1,18 +1,13 @@
-.collection-preview {
+.products {
     display: flex;
     flex-direction: column;
     margin-bottom: 20px;
     margin-top: 30px;
+    flex-flow: wrap;
    
    
   
-    .title {
-      font-size: 28px;
-      margin-bottom: 20px;
-      margin-left: 8px;
-     
-     
-    }
+  
   
     .preview {
       display: flex;

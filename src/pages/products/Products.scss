@@ -1,0 +1,28 @@
+.products {
+    display: flex;
+   
+
+    flex-direction: row;
+    
+
+    .button{
+   
+        position: absolute;
+        width: 80px;
+        height: fit-content;
+        display: flex;
+        flex-direction: column;
+        border: 1px solid black;
+        color: rgb(10, 10, 10);
+        top: 100px;
+        right: 50px;
+     
+        outline: none;
+        font-family: 'Open Sans Condensed';
+        font-size: 20px;
+        border: 1px solid black;
+        cursor: pointer;
+    
+       
+    }
+}

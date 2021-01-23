@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+
 import { connect } from 'react-redux'
 import {Link} from 'react-router-dom'
 import { auth } from '../../firebase/firebase'
@@ -9,37 +10,74 @@ import CartDropdown from  '../cart-dropdown/CartDropdown'
 import './Header.scss'
 import {ReactComponent as Logo} from '../../assets/crown.svg'
 import { createStructuredSelector } from 'reselect';
-import { selectCartHidden}  from '../../redux/cart/cart.selectors'
+import { selectCartHidden, }  from '../../redux/cart/cart.selectors'
 import { selectCurrentUser } from '../../redux/user/user.selectors';
+import { selectCollectionsForPreview } from '../../redux/shop/shop.selectors'
 
-function Header({currentUser,hidden}) {
+
+
+import {HeaderContainerdiv, LogoConatainerlink, OptionsContainerdiv, 
+     OptionLink, DropdownContainerdiv,SearchConatainerlink } from './Header.styles'
+import SearchBox from '../searchbox/Searchbox';
+
+
+function Header({currentUser,hidden, collections,toggleCartHidden ,searchChange}) {
+
+    const [shopDropdown, setShopDropdown] = useState(false)
+
+   const onDropdownToggle = () => {
+       setShopDropdown(!shopDropdown)
+}
+
     return (
-        <div className="header">
-            <Link className="logo-container" to='/' >    
-                <Logo className="logo"/>    
-            </Link>   
-            <div className="options" >
-                <Link className="option" to='/shop'>
-                    SHOP
-                </Link>
-                <Link className="option" to='/contact'>
+        <HeaderContainerdiv >
+            <LogoConatainerlink to='/' >    
+            <Logo />  
+           
+            </LogoConatainerlink>    
+            
+      
+            
+            <OptionsContainerdiv  >      
+            
+            <SearchConatainerlink to = 'products'>
+                <SearchBox search = {searchChange} />
+            </SearchConatainerlink>
+               <div onMouseLeave ={onDropdownToggle}>
+               <OptionLink  onMouseOver={onDropdownToggle} 
+               to='/shop'> SHOP </OptionLink>
+               
+               {shopDropdown
+                ? <DropdownContainerdiv onMouseLeave ={onDropdownToggle}>
+                { collections.map(collection =>(
+                    <Link to={`/shop/${collection.title.toLowerCase()}`} key={collection.id}> 
+                    {collection.title} </Link>
+                   )) }
+                </DropdownContainerdiv >
+                :null}
+                
+                </div>
+                <OptionLink to='/contact'>
                     CONTACT
-                </Link>
+                </OptionLink>
                 {
                     currentUser
-                    ? <Link className="option" onClick={() => auth.signOut()}>SIGNOUT</Link>
-                    : <Link className="option" to='/signin'>SIGN IN</Link>
+                    ? <OptionLink as ='div' onClick={() => auth.signOut()}>SIGNOUT</OptionLink>
+                    : <OptionLink to='/signin'>SIGN IN</OptionLink>
                 } 
                 <CartIcon />
               
-            </div>{ hidden ? null 
-           : <CartDropdown />
+            </OptionsContainerdiv  >{ hidden ? null 
+           : <CartDropdown  />
                 }
-        </div>
+        </HeaderContainerdiv>
     );
 }
  const mapStateToProps = (createStructuredSelector)  ({
      currentUser: selectCurrentUser,
-     hidden: selectCartHidden
+     hidden: selectCartHidden,
+     collections: selectCollectionsForPreview
+
  })
+
 export default connect(mapStateToProps)(Header);

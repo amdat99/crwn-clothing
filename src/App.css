@@ -1,3 +1,6 @@
+
+
+
 body{
     font-family: 'Merriweather', serif;
     padding: 20px 60px;
@@ -21,3 +24,5 @@ body{
    .hide-scroll::-webkit-scrollbar {
     display: none;
   }
+
+  

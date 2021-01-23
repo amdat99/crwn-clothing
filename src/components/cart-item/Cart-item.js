@@ -1,4 +1,5 @@
 import React from 'react'
+
 import './Cart-item.scss'
 
 import {connect} from 'react-redux'

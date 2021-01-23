@@ -1,31 +1,35 @@
-import React from 'react';
+import React from 'react'
 import CartItem from '../cart-item/Cart-item'
 import CustomButton from '../custom-button/CustomButton'
 import { withRouter } from 'react-router-dom'
+import ScrollToBottom from 'react-scroll-to-bottom';
 
 import { connect } from 'react-redux';
 import { selectCartItems} from '../../redux/cart/cart.selectors'
-import {toggleCartHidden}  from '../../redux/cart/cart.actions'
+import {cartHiddenTrue,cartHiddenFalse}  from '../../redux/cart/cart.actions'
 
 
 import './CartDropdown.scss'
-function CartDropdown({cartItems, toggleCartHidden, history}) {
-    return (
-        <div className = 'cart-dropdown' onMouseLeave = {toggleCartHidden}>
-            <div className = 'cart-items hide-scroll' >  
+function CartDropdown({cartItems, cartHiddenTrue,cartHiddenFalse, history}) {
+    
+
+     
+        return (
+        <div className = 'cart-dropdown' onBlur ={cartHiddenTrue} tabIndex={'0'} >
+            <ScrollToBottom className = 'cart-items hide-scroll'  >  
             {   
                 cartItems.length ?
-                cartItems.map(cartItem => {
-                return <CartItem key ={cartItem.id} item = {cartItem}  />
+                cartItems.map((cartItem, i) => {
+                return <CartItem  key ={cartItem.id} item = {cartItem} />
                 } )
                 : <span className = 'empty-message'>Your cart is empty</span>
             } 
 
-             </div>
+             </ScrollToBottom>
              
             <CustomButton onClick = {() =>{
                  history.push('/checkout');
-                toggleCartHidden()}}> CHECKOUT 
+                 cartHiddenTrue()}}> CHECKOUT 
             </CustomButton> 
             
            
@@ -40,7 +44,8 @@ const mapStateToProps = (state) => ({
   });
 
 const mapDispatchToProps = (dispatch) => ({
-    toggleCartHidden: () => dispatch(toggleCartHidden())
+    cartHiddenTrue: () => dispatch(cartHiddenTrue()),
+    cartHiddenFalse: () => dispatch(cartHiddenFalse())
 })
 
 
