@@ -2,10 +2,10 @@ import React, { useState,useEffect } from 'react';
 
 import CollectionItems from '../../components/collection-items/Collection-items';
 
-
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect'
-import { selectCollectionsForPreview } from '../../redux/shop/shop.selectors'
+import { selectCollectionsForProduct } from '../../redux/shop/shop.selectors'
+
 
 
 
@@ -20,20 +20,27 @@ function Products({collections}) {
   
   useEffect(() => {
     filterCollections()
+   
     // eslint-disable-next-line
   },[collections]);
   
   const filterCollections = (params) => {
     switch(params){
-      case 'hats':
+      case 'Hats':
         return setFilteredCollections(collections.filter( collection => {
           return collection.title.includes('Hats')}))
-      case 'sneakers':
+      case 'Sneakers':
         return setFilteredCollections(collections.filter( collection => {
           return collection.title.includes('Sneakers')}))
-      case 'jackets':
+      case 'Jackets':
         return setFilteredCollections(collections.filter( collection => {
           return collection.title.includes('Jackets')}))
+      case 'Mens':
+        return setFilteredCollections(collections.filter( collection => {
+          return collection.title.includes('Mens')}))
+      case 'Womens':
+          return setFilteredCollections(collections.filter( collection => {
+            return collection.title.includes('Womens')}))
      default:
           return setFilteredCollections(collections)
         }
@@ -41,25 +48,28 @@ function Products({collections}) {
   
 
   return (  
-        <div className="products">
-          
-          <div className="button">
-            <span params= 'hats' onClick={()=> filterCollections('hats')}>hats</span>
-            <span params= 'sneakers' onClick={()=> filterCollections('sneakers')}>sneakers</span>
-            <span params= 'jackets' onClick={()=> filterCollections('jackets')}>jackets</span>
-            <span  onClick={() => filterCollections()}>reset</span>
-        </div>
+        <div className= 'product-items'>
+        <h1 className= 'product-title'>Products</h1>
+        
+        <div className = 'product-item'>
+         
+            <div className="filter-container">
+            { collections.map((collection, i) => (
+            <span className= 'filter-item'params= {collection.title} key = {i} onClick={()=>filterCollections(collection.title)}> {collection.title}</span>  
+            )) 
+            }<span  onClick={() => filterCollections()}> reset</span>
+        </div >
+      
       { 
-      filteredCollections.map(({ id, ...otherCollectionProps }) => (
-      <CollectionItems key={id} {...otherCollectionProps}
-     />
-    ))}  
-  </div>
+        filteredCollections.map(({ id, ...otherCollectionProps }) => (
+          <CollectionItems key={id} {...otherCollectionProps} />
+      ))}  
+  </div></div>
 );
-      }
+}
 
 const mapStateToProps = createStructuredSelector({
-  collections: selectCollectionsForPreview
+  collections: selectCollectionsForProduct
 });
 
 export default connect(mapStateToProps)(Products);

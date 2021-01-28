@@ -1,18 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState  } from 'react';
 
 import { connect } from 'react-redux'
-import {Link} from 'react-router-dom'
-import { auth } from '../../firebase/firebase'
+import {Link } from 'react-router-dom'
+// import { auth } from '../../firebase/firebase'
 import CartIcon from '../cart-icon/Cart-icon'
 import CartDropdown from  '../cart-dropdown/CartDropdown'
 
-
 import './Header.scss'
 import {ReactComponent as Logo} from '../../assets/crown.svg'
+
 import { createStructuredSelector } from 'reselect';
 import { selectCartHidden, }  from '../../redux/cart/cart.selectors'
 import { selectCurrentUser } from '../../redux/user/user.selectors';
 import { selectCollectionsForPreview } from '../../redux/shop/shop.selectors'
+import { signOutPending} from '../../redux/user/user.actions'
 
 
 
@@ -21,9 +22,12 @@ import {HeaderContainerdiv, LogoConatainerlink, OptionsContainerdiv,
 import SearchBox from '../searchbox/Searchbox';
 
 
-function Header({currentUser,hidden, collections,toggleCartHidden ,searchChange}) {
+function Header({currentUser,hidden, collections,toggleCartHidden ,searchChange,signOutPending}) {
 
     const [shopDropdown, setShopDropdown] = useState(false)
+
+
+
 
    const onDropdownToggle = () => {
        setShopDropdown(!shopDropdown)
@@ -40,8 +44,9 @@ function Header({currentUser,hidden, collections,toggleCartHidden ,searchChange}
             
             <OptionsContainerdiv  >      
             
-            <SearchConatainerlink to = 'products'>
-                <SearchBox search = {searchChange} />
+            <SearchConatainerlink to = '/products'>
+              
+                <SearchBox search = {searchChange}  />
             </SearchConatainerlink>
                <div onMouseLeave ={onDropdownToggle}>
                <OptionLink  onMouseOver={onDropdownToggle} 
@@ -62,7 +67,7 @@ function Header({currentUser,hidden, collections,toggleCartHidden ,searchChange}
                 </OptionLink>
                 {
                     currentUser
-                    ? <OptionLink as ='div' onClick={() => auth.signOut()}>SIGNOUT</OptionLink>
+                    ? <OptionLink as ='a' onClick={ signOutPending }>SIGNOUT</OptionLink>
                     : <OptionLink to='/signin'>SIGN IN</OptionLink>
                 } 
                 <CartIcon />
@@ -80,4 +85,8 @@ function Header({currentUser,hidden, collections,toggleCartHidden ,searchChange}
 
  })
 
-export default connect(mapStateToProps)(Header);
+ const mapDispatchToProps = (dispatch) => ({
+     signOutPending: () => dispatch(signOutPending())
+ });
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

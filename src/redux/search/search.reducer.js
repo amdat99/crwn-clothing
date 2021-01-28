@@ -8,7 +8,10 @@ const initialSearchState = {
  const searchProducts = (state= initialSearchState, action= {})=> {
 	switch(action.type){
 	 case searchActionTypes.CHANGE_SEARCH_FIELD:
-	   return Object.assign({}, state, { searchField: action.payload })
+	   return {
+		   ...state,
+		searchField: action.payload 
+	   }
 	 default: 
 		return state
  }

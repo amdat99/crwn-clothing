@@ -1,14 +1,25 @@
 import React from 'react';
 import  Products from './Products'
-import LoadingSpinner from '../../components/loading-spinner/Loading-spinner'
+import WithSpinner from '../../components/loading-spinner/Loading-spinner'
 
-function ProductsPage({loading}) {
-    console.log(loading)
+import { createStructuredSelector } from 'reselect';
+import {connect} from 'react-redux'
+import { isCollectionsLoaded } from '../../redux/shop/shop.selectors';
+
+import './Products.scss';
+
+const ProductsWithSpinner = WithSpinner(Products);
+
+function ProductsPage({isLoaded, ...props}) {
+    
     return (
-        <div> {loading ? <div> <h1>loading</h1> <LoadingSpinner /></div> :
-            <Products />}
+        <div className="products">  
+            <ProductsWithSpinner isLoading={!isLoaded} {...props} />
         </div>
     );
 }
+ const mapStateToProps= (createStructuredSelector)({
+    isLoaded: isCollectionsLoaded
+ })
 
-export default ProductsPage;
+export default connect(mapStateToProps)(ProductsPage);

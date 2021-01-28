@@ -10,6 +10,16 @@
     }
     .remove{
     font-size: 9px;
+    display: flex;
+    flex-direction: row;
+    padding-right: 12px;
+
+    .remove-span{
+       margin-right: 3px; 
+
+    }
+  
+
     cursor: pointer;
     position: relative;
     left: -30px;

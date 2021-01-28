@@ -1,22 +1,26 @@
 import React from 'react'
 import CartItem from '../cart-item/Cart-item'
 import CustomButton from '../custom-button/CustomButton'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Link } from 'react-router-dom'
 import ScrollToBottom from 'react-scroll-to-bottom';
 
 import { connect } from 'react-redux';
 import { selectCartItems} from '../../redux/cart/cart.selectors'
-import {cartHiddenTrue,cartHiddenFalse}  from '../../redux/cart/cart.actions'
+import {cartHiddenTrue,cartHiddenFalse,clearAllItemsFromCart}  from '../../redux/cart/cart.actions'
 
 
 import './CartDropdown.scss'
-function CartDropdown({cartItems, cartHiddenTrue,cartHiddenFalse, history}) {
+function CartDropdown({cartItems, cartHiddenTrue,clearCart, history}) {
     
 
      
         return (
-        <div className = 'cart-dropdown' onBlur ={cartHiddenTrue} tabIndex={'0'} >
+        <div className = 'cart-dropdown' onBlur ={cartHiddenTrue} tabIndex={'0'} > 
+            <Link className = 'dropdown-clear-cart'onClick = { clearCart }> CLEAR CART &#9746; 
+            </Link>
             <ScrollToBottom className = 'cart-items hide-scroll'  >  
+            
+           
             {   
                 cartItems.length ?
                 cartItems.map((cartItem, i) => {
@@ -31,6 +35,7 @@ function CartDropdown({cartItems, cartHiddenTrue,cartHiddenFalse, history}) {
                  history.push('/checkout');
                  cartHiddenTrue()}}> CHECKOUT 
             </CustomButton> 
+         
             
            
             
@@ -45,7 +50,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     cartHiddenTrue: () => dispatch(cartHiddenTrue()),
-    cartHiddenFalse: () => dispatch(cartHiddenFalse())
+    cartHiddenFalse: () => dispatch(cartHiddenFalse()),
+    clearCart: items => dispatch(clearAllItemsFromCart(items))
 })
 
 
@@ -53,3 +59,4 @@ const mapDispatchToProps = (dispatch) => ({
 //     cartItems
 //   });
 export default withRouter(connect(mapStateToProps,mapDispatchToProps)(CartDropdown));
+

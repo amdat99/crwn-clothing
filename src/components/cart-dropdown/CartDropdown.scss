@@ -19,7 +19,14 @@
       position: relative;
       
     }
-  
+    
+    .dropdown-clear-cart{
+      font-size: 12px;
+      display: flex;
+      justify-content: flex-end;
+      color: red;
+    }
+    
     .cart-items {
       height: 240px;
       display: flex;

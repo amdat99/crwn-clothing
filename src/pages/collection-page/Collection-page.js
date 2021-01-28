@@ -1,13 +1,19 @@
-import React from 'react';
+import React ,{useEffect} from 'react';
 import CollectionItem from '../../components/collection-item/Collection-item'
 
 import { connect } from 'react-redux';
 import { selectCollection } from '../../redux/shop/shop.selectors'
 
+
+
 import './Collection-page.scss'
 
-const CollectionPage = ({ collection }) => {
-  const { title, items } = collection;
+const CollectionPage = ({ collection,match }) => {
+  const { items, title } = collection;
+
+ useEffect( () => {
+
+ })
 
   return (
     <div className='collection-page'>
